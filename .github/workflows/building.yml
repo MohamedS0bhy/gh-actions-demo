@@ -1,0 +1,29 @@
+name: Building
+on: push
+jobs:
+  Linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm ci
+      - name: Linting
+        run: npm run lint
+  testing:
+    needs: Linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm ci
+      - name: Testing
+        run: npm run test
+  building:
+    needs: testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install dependencies
+        run: npm ci
+      - name: Building
+        run: npm run build
